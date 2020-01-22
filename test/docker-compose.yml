@@ -1,0 +1,25 @@
+version: '3'
+services:
+  pdns_certbot_server:
+    build: ../
+    image: pdns_certbot_server_test:latest
+    container_name: pdns_certbot_server_test
+    environment:
+      CERTBOT_PDNS_BASE_URL: http://192.168.0.5:61001/api/v1
+      CERTBOT_PDNS_API_KEY: NLj63UPh4kk_J.0
+      CERTBOT_EMAIL: mitsuru@procube.jp
+    ports:
+      - '8080:8080'
+    command: python3 -m swagger_server
+    tty: true
+    networks:
+      - my-network
+  pdns_certbot_client:
+    build: ./test_client
+    image: pdns_certbot_client_test:latest
+    container_name: pdns_certbot_client_test
+    tty: true
+    networks:
+      - my-network
+networks:
+  my-network:

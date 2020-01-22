@@ -1,0 +1,186 @@
+openapi: 3.0.0
+info:
+  title: REST powerdns certbot
+  description: "let's encrypt でサーバ証明書を取得し配布する。\n環境変数 CERTBOT_PDNS_BASE_URL に指定された\
+    \ URL  \nに対して CERTBOT_PDNS_API_KEY に指定された API 鍵で\nPowerDNS の API に接続して letsencrpt\
+    \ の認証を受ける。\n認証時は CERTBOT_EMAIL に指定したメールアドレスで\nlets encrypt のアカウントを作成する。\nまた、 renew\
+    \ API が呼び出されると取得した証明書を更新する。\n"
+  contact:
+    email: mitsuru@procube.jp
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+- url: http://localhost:61003/v1
+tags:
+- name: get certificate
+  description: サーバ証明書を取得する
+- name: renew certificate
+  description: サーバ証明書を更新する
+paths:
+  /get/{fqdn}:
+    get:
+      tags:
+      - get certificate
+      summary: サーバ証明書を取得するAPIである。
+      description: |
+        fqdn で指定されたドメインのサーバ証明書
+      operationId: get_certificate
+      parameters:
+      - name: fqdn
+        in: path
+        description: 取得する証明書の FQDN
+        required: true
+        style: simple
+        explode: false
+        schema:
+          type: string
+          format: hostname
+          example: www.example.com
+      responses:
+        200:
+          description: 正常終了
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Certificate'
+        501:
+          description: certbot の呼び出しでエラーが発生した
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-openapi-router-controller: swagger_server.controllers.get_certificate_controller
+  /renew:
+    post:
+      tags:
+      - renew certificate
+      summary: サーバ証明書を更新する
+      description: |
+        取得済みの証明書の期限切れをチェックし、期限切れが
+        近いものを更新するAPIである。クロックデーモンにより、
+        定期的に呼び出されることを前提としている。
+      operationId: renew
+      responses:
+        200:
+          description: ok
+        501:
+          description: certbot の呼び出しでエラーが発生した
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      x-openapi-router-controller: swagger_server.controllers.renew_certificate_controller
+components:
+  schemas:
+    Certificate:
+      type: object
+      properties:
+        mtime:
+          title: date
+          type: string
+          description: 証明書を取得/更新した日時
+          format: date-time
+        cert:
+          title: certificate
+          type: string
+          description: サーバ証明書
+          example: |
+            -----BEGIN CERTIFICATE-----
+            MIIGKDCCBRCgAwIBAgISA5FY/8zZgI3QbaUi3wSpgtMJMA0GCSqGSIb3DQEBCwUA
+            MEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD
+            ExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xODEwMDUxMDM4MjRaFw0x
+            OTAxMDMxMDM4MjRaMCoxKDAmBgNVBAMTH3BvcnRhbC5taWMtdGVzdC5wcm9jdWJl
+            LWRlbW8uanAwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCrNahcIILd
+            gyEMcwveA7CYC+ZnmDW2jbE2AwXO6b3G4/lMX8YDeq5FXLdC5Qrcs6jBSu02uUKQ
+            o5uHaEaCXynR2Xo1L1kvKYFivKM+GWs3KY/pT/1lCaP6xCVtED/Tepy1K0lgfj5e
+            -----END CERTIFICATE-----
+        fullchain:
+          title: certificate with intermediate certificate
+          type: string
+          description: 中間証明書付きサーバ証明書
+          example: |
+            -----BEGIN CERTIFICATE-----
+            MIIGKDCCBRCgAwIBAgISA5FY/8zZgI3QbaUi3wSpgtMJMA0GCSqGSIb3DQEBCwUA
+            MEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD
+            ExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xODEwMDUxMDM4MjRaFw0x
+            OTAxMDMxMDM4MjRaMCoxKDAmBgNVBAMTH3BvcnRhbC5taWMtdGVzdC5wcm9jdWJl
+            LWRlbW8uanAwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCrNahcIILd
+            gyEMcwveA7CYC+ZnmDW2jbE2AwXO6b3G4/lMX8YDeq5FXLdC5Qrcs6jBSu02uUKQ
+            o5uHaEaCXynR2Xo1L1kvKYFivKM+GWs3KY/pT/1lCaP6xCVtED/Tepy1K0lgfj5e
+            -----END CERTIFICATE-----
+            -----BEGIN CERTIFICATE-----
+            MIIGKDCCBRCgAwIBAgISA5FY/8zZgI3QbaUi3wSpgtMJMA0GCSqGSIb3DQEBCwUA
+            MEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD
+            ExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xODEwMDUxMDM4MjRaFw0x
+            OTAxMDMxMDM4MjRaMCoxKDAmBgNVBAMTH3BvcnRhbC5taWMtdGVzdC5wcm9jdWJl
+            LWRlbW8uanAwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCrNahcIILd
+            gyEMcwveA7CYC+ZnmDW2jbE2AwXO6b3G4/lMX8YDeq5FXLdC5Qrcs6jBSu02uUKQ
+            o5uHaEaCXynR2Xo1L1kvKYFivKM+GWs3KY/pT/1lCaP6xCVtED/Tepy1K0lgfj5e
+            -----END CERTIFICATE-----
+        privkey:
+          title: private key
+          type: string
+          description: 秘密鍵
+          example: |
+            -----BEGIN PRIVATE KEY-----
+            MIIGKDCCBRCgAwIBAgISA5FY/8zZgI3QbaUi3wSpgtMJMA0GCSqGSIb3DQEBCwUA
+            MEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD
+            ExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xODEwMDUxMDM4MjRaFw0x
+            OTAxMDMxMDM4MjRaMCoxKDAmBgNVBAMTH3BvcnRhbC5taWMtdGVzdC5wcm9jdWJl
+            LWRlbW8uanAwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCrNahcIILd
+            gyEMcwveA7CYC+ZnmDW2jbE2AwXO6b3G4/lMX8YDeq5FXLdC5Qrcs6jBSu02uUKQ
+            o5uHaEaCXynR2Xo1L1kvKYFivKM+GWs3KY/pT/1lCaP6xCVtED/Tepy1K0lgfj5e
+            -----END PRIVATE KEY-----
+      example:
+        privkey: |
+          -----BEGIN PRIVATE KEY-----
+          MIIGKDCCBRCgAwIBAgISA5FY/8zZgI3QbaUi3wSpgtMJMA0GCSqGSIb3DQEBCwUA
+          MEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD
+          ExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xODEwMDUxMDM4MjRaFw0x
+          OTAxMDMxMDM4MjRaMCoxKDAmBgNVBAMTH3BvcnRhbC5taWMtdGVzdC5wcm9jdWJl
+          LWRlbW8uanAwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCrNahcIILd
+          gyEMcwveA7CYC+ZnmDW2jbE2AwXO6b3G4/lMX8YDeq5FXLdC5Qrcs6jBSu02uUKQ
+          o5uHaEaCXynR2Xo1L1kvKYFivKM+GWs3KY/pT/1lCaP6xCVtED/Tepy1K0lgfj5e
+          -----END PRIVATE KEY-----
+        cert: |
+          -----BEGIN CERTIFICATE-----
+          MIIGKDCCBRCgAwIBAgISA5FY/8zZgI3QbaUi3wSpgtMJMA0GCSqGSIb3DQEBCwUA
+          MEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD
+          ExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xODEwMDUxMDM4MjRaFw0x
+          OTAxMDMxMDM4MjRaMCoxKDAmBgNVBAMTH3BvcnRhbC5taWMtdGVzdC5wcm9jdWJl
+          LWRlbW8uanAwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCrNahcIILd
+          gyEMcwveA7CYC+ZnmDW2jbE2AwXO6b3G4/lMX8YDeq5FXLdC5Qrcs6jBSu02uUKQ
+          o5uHaEaCXynR2Xo1L1kvKYFivKM+GWs3KY/pT/1lCaP6xCVtED/Tepy1K0lgfj5e
+          -----END CERTIFICATE-----
+        mtime: 2000-01-23T04:56:07.000+00:00
+        fullchain: |
+          -----BEGIN CERTIFICATE-----
+          MIIGKDCCBRCgAwIBAgISA5FY/8zZgI3QbaUi3wSpgtMJMA0GCSqGSIb3DQEBCwUA
+          MEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD
+          ExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xODEwMDUxMDM4MjRaFw0x
+          OTAxMDMxMDM4MjRaMCoxKDAmBgNVBAMTH3BvcnRhbC5taWMtdGVzdC5wcm9jdWJl
+          LWRlbW8uanAwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCrNahcIILd
+          gyEMcwveA7CYC+ZnmDW2jbE2AwXO6b3G4/lMX8YDeq5FXLdC5Qrcs6jBSu02uUKQ
+          o5uHaEaCXynR2Xo1L1kvKYFivKM+GWs3KY/pT/1lCaP6xCVtED/Tepy1K0lgfj5e
+          -----END CERTIFICATE-----
+          -----BEGIN CERTIFICATE-----
+          MIIGKDCCBRCgAwIBAgISA5FY/8zZgI3QbaUi3wSpgtMJMA0GCSqGSIb3DQEBCwUA
+          MEoxCzAJBgNVBAYTAlVTMRYwFAYDVQQKEw1MZXQncyBFbmNyeXB0MSMwIQYDVQQD
+          ExpMZXQncyBFbmNyeXB0IEF1dGhvcml0eSBYMzAeFw0xODEwMDUxMDM4MjRaFw0x
+          OTAxMDMxMDM4MjRaMCoxKDAmBgNVBAMTH3BvcnRhbC5taWMtdGVzdC5wcm9jdWJl
+          LWRlbW8uanAwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCrNahcIILd
+          gyEMcwveA7CYC+ZnmDW2jbE2AwXO6b3G4/lMX8YDeq5FXLdC5Qrcs6jBSu02uUKQ
+          o5uHaEaCXynR2Xo1L1kvKYFivKM+GWs3KY/pT/1lCaP6xCVtED/Tepy1K0lgfj5e
+          -----END CERTIFICATE-----
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+          description: certbot が返したエラーメッセージ
+          example: |
+            Could not choose appropriate plugin
+            authenticator could not be determined or is not installed
+
