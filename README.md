@@ -1,4 +1,8 @@
-# PDNS Certbot server
+# Certbot REST API server
+
+## Overview
+This is a Docker container serves as REST API server that gets certificate using Certbot.  
+You can easily activate container by using Docker command.
 
 ## Requirements
 Python 3.5.2+
