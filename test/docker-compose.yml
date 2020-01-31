@@ -6,8 +6,8 @@ services:
     container_name: pdns_certbot_server_test
     environment:
       CERTBOT_PDNS_BASE_URL: http://192.168.0.5:61001/api/v1
-      CERTBOT_PDNS_API_KEY: NLj63UPh4kk_J.0
-      CERTBOT_EMAIL: mitsuru@procube.jp
+      CERTBOT_PDNS_API_KEY: test_api_key
+      CERTBOT_EMAIL: test@procube.jp
     ports:
       - '8080:8080'
     command: python3 -m swagger_server
