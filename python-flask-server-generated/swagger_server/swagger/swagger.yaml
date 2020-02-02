@@ -1,10 +1,11 @@
 openapi: 3.0.0
 info:
   title: REST powerdns certbot
-  description: "let's encrypt でサーバ証明書を取得し配布する。\n環境変数 CERTBOT_PDNS_BASE_URL に指定された\
-    \ URL  \nに対して CERTBOT_PDNS_API_KEY に指定された API 鍵で\nPowerDNS の API に接続して letsencrpt\
-    \ の認証を受ける。\n認証時は CERTBOT_EMAIL に指定したメールアドレスで\nlets encrypt のアカウントを作成する。\nまた、 renew\
-    \ API が呼び出されると取得した証明書を更新する。\n"
+  description: "Get a server certificate by let's encrypt and distribute. \n It will be certified\
+    \ by let's encrypt by connecting PowerDNS API defined in environment variable CERTBOT_PDNS_BASE_URL \n \
+    \ using environment variable CERTBOT_PDNS_API_KEY. \n  \
+    \ It creates let's encrypt account using e-mail address defined in environment variable CERTBOT_EMAIL. \n \
+    \ When renew API is called, it renew certificate. \n"
   contact:
     email: mitsuru@procube.jp
   license:
@@ -15,22 +16,22 @@ servers:
 - url: http://localhost:61003/v1
 tags:
 - name: get certificate
-  description: サーバ証明書を取得する
+  description: get server certificate
 - name: renew certificate
-  description: サーバ証明書を更新する
+  description: renew server certificate
 paths:
   /get/{fqdn}:
     get:
       tags:
       - get certificate
-      summary: サーバ証明書を取得するAPIである。
+      summary: API that gets server cetrificate.
       description: |
-        fqdn で指定されたドメインのサーバ証明書
+        server certificate of the domain which specified in fqdn.
       operationId: get_certificate
       parameters:
       - name: fqdn
         in: path
-        description: 取得する証明書の FQDN
+        description: FQDN of certificate to get
         required: true
         style: simple
         explode: false
@@ -40,13 +41,13 @@ paths:
           example: www.example.com
       responses:
         200:
-          description: 正常終了
+          description: exit correctly
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Certificate'
         501:
-          description: certbot の呼び出しでエラーが発生した
+          description: error occured when calling certbot
           content:
             application/json:
               schema:
@@ -56,17 +57,16 @@ paths:
     post:
       tags:
       - renew certificate
-      summary: サーバ証明書を更新する
+      summary: renew server certificate
       description: |
-        取得済みの証明書の期限切れをチェックし、期限切れが
-        近いものを更新するAPIである。クロックデーモンにより、
-        定期的に呼び出されることを前提としている。
+        API that renew certificate which is about to expire.
+        This should be called regularly by clock daemon.
       operationId: renew
       responses:
         200:
           description: ok
         501:
-          description: certbot の呼び出しでエラーが発生した
+          description: error occured when calling certbot
           content:
             application/json:
               schema:
@@ -80,12 +80,12 @@ components:
         mtime:
           title: date
           type: string
-          description: 証明書を取得/更新した日時
+          description: date when it get or renew certificate
           format: date-time
         cert:
           title: certificate
           type: string
-          description: サーバ証明書
+          description: server certificate
           example: |
             -----BEGIN CERTIFICATE-----
             MIIGKDCCBRCgAwIBAgISA5FY/8zZgI3QbaUi3wSpgtMJMA0GCSqGSIb3DQEBCwUA
@@ -99,7 +99,7 @@ components:
         fullchain:
           title: certificate with intermediate certificate
           type: string
-          description: 中間証明書付きサーバ証明書
+          description: server certificate with intermediate certificate
           example: |
             -----BEGIN CERTIFICATE-----
             MIIGKDCCBRCgAwIBAgISA5FY/8zZgI3QbaUi3wSpgtMJMA0GCSqGSIb3DQEBCwUA
@@ -122,7 +122,7 @@ components:
         privkey:
           title: private key
           type: string
-          description: 秘密鍵
+          description: private key
           example: |
             -----BEGIN PRIVATE KEY-----
             MIIGKDCCBRCgAwIBAgISA5FY/8zZgI3QbaUi3wSpgtMJMA0GCSqGSIb3DQEBCwUA
@@ -179,7 +179,7 @@ components:
       properties:
         message:
           type: string
-          description: certbot が返したエラーメッセージ
+          description: error message that certbot returns
           example: |
             Could not choose appropriate plugin
             authenticator could not be determined or is not installed
