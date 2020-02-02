@@ -6,15 +6,13 @@
 Welcome to pdns_certbot_server's documentation!
 ===============================================
 
+Contents:
+=========
+
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
 
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   Overview <overview>
+   Install <install>
+   Run API Server <apiserver>
+   Use API <useapi>
