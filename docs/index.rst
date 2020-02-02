@@ -15,4 +15,4 @@ Contents:
    Overview <overview>
    Install <install>
    Run API Server <apiserver>
-   Use API <useapi>
+   How to Use API <useapi>
