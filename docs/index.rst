@@ -6,7 +6,6 @@
 Welcome to pdns_certbot_server's documentation!
 ===============================================
 
-Contents:
 
 .. toctree::
    :maxdepth: 2
