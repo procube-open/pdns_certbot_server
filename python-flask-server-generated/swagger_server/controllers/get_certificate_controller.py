@@ -18,11 +18,11 @@ LOCK = threading.Lock()
 
 
 def get_certificate(fqdn):  # noqa: E501
-    """サーバ証明書を取得するAPIである。
+    """API that get server certificate
 
-    fqdn で指定されたドメインのサーバ証明書  # noqa: E501
+    server certificate of the domain which specified in fqdn.  # noqa: E501
 
-    :param fqdn: 取得する証明書の FQDN
+    :param fqdn: FQDN of certificate to get
     :type fqdn: str
 
     :rtype: Certificate
@@ -36,12 +36,12 @@ def get_certificate(fqdn):  # noqa: E501
             handler = logging.StreamHandler()
             logger.addHandler(handler)
 
-            # パス
+            # path
             cert_path = '/etc/letsencrypt/live/' + fqdn + '/cert.pem'
             fullchain_path = '/etc/letsencrypt/live/' + fqdn + '/fullchain.pem'
             key_path = '/etc/letsencrypt/live/' + fqdn + '/privkey.pem'
 
-            # 証明書がなければ取得
+            # get certificate if not exist
             if not os.path.exists('/etc/letsencrypt/live/' + fqdn):
                 args = ['certbot', '--agree-tos', '--text', '--renew-by-default',
                         '-n', '--no-eff-email', '--authenticator',
@@ -56,7 +56,7 @@ def get_certificate(fqdn):  # noqa: E501
 
                     return error_message, 500 + int(proc.returncode)
 
-            # 証明書を取り、値を代入
+            # get certificate and assign value
             with open(cert_path, 'r') as cert_file:
                 cert = cert_file.read()
                 target_Certificate.cert = cert

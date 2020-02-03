@@ -11,7 +11,7 @@ class TestGetCertificateController(BaseTestCase):
     def test_get_certificate(self):
         """Test case for get_certificate
 
-        サーバ証明書を取得するAPIである。
+        API that gets server certificate.
         """
         response = self.client.open(
             '/v1/get/{fqdn}'.format(fqdn='fqdn_example'),

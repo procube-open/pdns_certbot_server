@@ -6,9 +6,9 @@ from swagger_server import util
 
 
 def renew():  # noqa: E501
-    """サーバ証明書を更新する
+    """renew server certificate
 
-    取得済みの証明書の期限切れをチェックし、期限切れが 近いものを更新するAPIである。クロックデーモンにより、 定期的に呼び出されることを前提としている。  # noqa: E501
+    API that renew certificate which is about to expire. This should be called regularly by clock daemon.  # noqa: E501
 
 
     :rtype: None

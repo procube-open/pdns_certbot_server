@@ -27,11 +27,10 @@ setup(
     entry_points={
         'console_scripts': ['swagger_server=swagger_server.__main__:main']},
     long_description="""\
-    let&#x27;s encrypt でサーバ証明書を取得し配布する。 環境変数\
-    CERTBOT_PDNS_BASE_URL に指定された URL   に対して\
-    CERTBOT_PDNS_API_KEY に指定された API 鍵で PowerDNS の\
-    API に接続して letsencrpt の認証を受ける。 認証時は CERTBOT_EMAIL\
-    に指定したメールアドレスで lets encrypt のアカウントを作成する。 \
-    また、 renew API が呼び出されると取得した証明書を更新する。
+    Get a server certificate by let&#x27;s encrypt and distribute.\
+    It will be certified by let&#x27;s encrypt by connecting PowerDNS API defined in environment variable \
+    CERTBOT_PDNS_BASEURL using environment variable CERTBOT_PDNS_API_KEY.\
+    It creates let&#x27;s encrypt account using e-mail address defined in environment variable CERTBOT_EMAIL. \
+    When renew API is called, it renew certificate.
     """
 )

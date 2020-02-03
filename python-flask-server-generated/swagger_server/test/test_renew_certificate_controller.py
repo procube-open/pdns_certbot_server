@@ -11,7 +11,7 @@ class TestRenewCertificateController(BaseTestCase):
     def test_renew(self):
         """Test case for renew
 
-        サーバ証明書を更新する
+        renew server certificate.
         """
         response = self.client.open(
             '/v1/renew',

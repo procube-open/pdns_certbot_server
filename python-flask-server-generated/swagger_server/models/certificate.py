@@ -59,7 +59,7 @@ class Certificate(Model):
     def mtime(self) -> datetime:
         """Gets the mtime of this Certificate.
 
-        証明書を取得/更新した日時  # noqa: E501
+        date when it get or renew certificate  # noqa: E501
 
         :return: The mtime of this Certificate.
         :rtype: datetime
@@ -70,7 +70,7 @@ class Certificate(Model):
     def mtime(self, mtime: datetime):
         """Sets the mtime of this Certificate.
 
-        証明書を取得/更新した日時  # noqa: E501
+        date when it get or renew certificate  # noqa: E501
 
         :param mtime: The mtime of this Certificate.
         :type mtime: datetime
@@ -82,7 +82,7 @@ class Certificate(Model):
     def cert(self) -> str:
         """Gets the cert of this Certificate.
 
-        サーバ証明書  # noqa: E501
+        server certificate  # noqa: E501
 
         :return: The cert of this Certificate.
         :rtype: str
@@ -93,7 +93,7 @@ class Certificate(Model):
     def cert(self, cert: str):
         """Sets the cert of this Certificate.
 
-        サーバ証明書  # noqa: E501
+        server certificate  # noqa: E501
 
         :param cert: The cert of this Certificate.
         :type cert: str
@@ -105,7 +105,7 @@ class Certificate(Model):
     def fullchain(self) -> str:
         """Gets the fullchain of this Certificate.
 
-        中間証明書付きサーバ証明書  # noqa: E501
+        server certificate with intermediate certificate  # noqa: E501
 
         :return: The fullchain of this Certificate.
         :rtype: str
@@ -116,7 +116,7 @@ class Certificate(Model):
     def fullchain(self, fullchain: str):
         """Sets the fullchain of this Certificate.
 
-        中間証明書付きサーバ証明書  # noqa: E501
+        server certificate with intermediate certificate  # noqa: E501
 
         :param fullchain: The fullchain of this Certificate.
         :type fullchain: str
@@ -128,7 +128,7 @@ class Certificate(Model):
     def privkey(self) -> str:
         """Gets the privkey of this Certificate.
 
-        秘密鍵  # noqa: E501
+        private key  # noqa: E501
 
         :return: The privkey of this Certificate.
         :rtype: str
@@ -139,7 +139,7 @@ class Certificate(Model):
     def privkey(self, privkey: str):
         """Sets the privkey of this Certificate.
 
-        秘密鍵  # noqa: E501
+        private key  # noqa: E501
 
         :param privkey: The privkey of this Certificate.
         :type privkey: str
