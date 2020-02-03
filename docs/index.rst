@@ -12,7 +12,5 @@ Welcome to pdns_certbot_server's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   Overview <overview>
-   Install <install>
-   Run API Server <apiserver>
+   About PDNS Certbot Server <overview>
    How to Use API <useapi>
