@@ -52,4 +52,5 @@ pdns_certbot_server_test:latest \
 python3 -m swagger_server
 ```
   
-Please change environment variable into your own one.
+Please change environment variable into your own one.  
+For more detail, read [the manual](pdns-certbot-server.readthedocs.io).

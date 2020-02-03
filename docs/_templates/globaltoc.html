@@ -1,7 +1,9 @@
 <div id="toc" class="sidebarRow">
+<h3><a href="pdns-certbot-server.readthedocs.io">PDNS Certbot Server</a></h3>
+
 <h3><a href="{{ pathto(master_doc) }}">Contents:</a></h3>
 {%- if sphinx_version[:3] >= '1.2' %}
-{{ toctree (maxdepth=3, collapse=False, includehidden=True) }}
+{{ toctree (maxdepth=3, collapse=False, includehidden=False) }}
 {% else %}
 {{ toctree(maxdepth=3, collapse=False) }}
 {% endif %}
