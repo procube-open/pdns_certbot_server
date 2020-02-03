@@ -1,1 +1,2 @@
 sphinxcontrib-openapi
+m2r
