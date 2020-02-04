@@ -29,6 +29,7 @@ author = 'KosukeOkabe'
 # ones.
 extensions = [
     'sphinxcontrib.openapi',
+    'sphinx_rtd_theme',
     'm2r'
 ]
 
