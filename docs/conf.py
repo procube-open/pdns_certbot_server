@@ -59,3 +59,5 @@ html_static_path = ['_static']
 # html_sidebars = {
 #    '**': ['sourcelink.html', 'searchbox.html'],
 # }
+
+master_doc = 'index'
