@@ -3,10 +3,8 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-===============================================
 Welcome to pdns_certbot_server's documentation!
 ===============================================
-
 
 .. toctree::
    :maxdepth: 2
@@ -14,3 +12,12 @@ Welcome to pdns_certbot_server's documentation!
 
    About Certbot REST API Server <overview>
    How to Use API <useapi>
+
+..
+  Indices and tables
+  ==================
+
+..
+  * :ref:`genindex`
+  * :ref:`modindex`
+  * :ref:`search`

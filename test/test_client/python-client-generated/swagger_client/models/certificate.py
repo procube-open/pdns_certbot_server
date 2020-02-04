@@ -3,7 +3,7 @@
 """
     REST powerdns certbot
 
-    let's encrypt でサーバ証明書を取得し配布する。 環境変数 CERTBOT_PDNS_BASE_URL に指定された URL   に対して CERTBOT_PDNS_API_KEY に指定された API 鍵で PowerDNS の API に接続して letsencrpt の認証を受ける。 認証時は CERTBOT_EMAIL に指定したメールアドレスで lets encrypt のアカウントを作成する。 また、 renew API が呼び出されると取得した証明書を更新する。   # noqa: E501
+    Get a server certificate by let's encrypt and distribute. It will be certified by let's encrypt by connecting PowerDNS API defined in environment variable CERTBOT_PDNS_BASE_URL using environment variable CERTBOT_PDNS_API_KEY. It creates let's encrypt account using e-mail address defined in environment variable CERTBOT_EMAIL. When renew API is called, it renew certificate.  # noqa: E501
 
     OpenAPI spec version: 1.0.0
     Contact: mitsuru@procube.jp
@@ -62,7 +62,7 @@ class Certificate(object):
     def mtime(self):
         """Gets the mtime of this Certificate.  # noqa: E501
 
-        証明書を取得/更新した日時  # noqa: E501
+        date when it get or renew certificate  # noqa: E501
 
         :return: The mtime of this Certificate.  # noqa: E501
         :rtype: datetime
@@ -73,7 +73,7 @@ class Certificate(object):
     def mtime(self, mtime):
         """Sets the mtime of this Certificate.
 
-        証明書を取得/更新した日時  # noqa: E501
+        date when it get or renew certificate  # noqa: E501
 
         :param mtime: The mtime of this Certificate.  # noqa: E501
         :type: datetime
@@ -85,7 +85,7 @@ class Certificate(object):
     def cert(self):
         """Gets the cert of this Certificate.  # noqa: E501
 
-        サーバ証明書  # noqa: E501
+        server certificate  # noqa: E501
 
         :return: The cert of this Certificate.  # noqa: E501
         :rtype: str
@@ -96,7 +96,7 @@ class Certificate(object):
     def cert(self, cert):
         """Sets the cert of this Certificate.
 
-        サーバ証明書  # noqa: E501
+        server certificate  # noqa: E501
 
         :param cert: The cert of this Certificate.  # noqa: E501
         :type: str
@@ -108,7 +108,7 @@ class Certificate(object):
     def fullchain(self):
         """Gets the fullchain of this Certificate.  # noqa: E501
 
-        中間証明書付きサーバ証明書  # noqa: E501
+        server certificate with intermediate certificate  # noqa: E501
 
         :return: The fullchain of this Certificate.  # noqa: E501
         :rtype: str
@@ -119,7 +119,7 @@ class Certificate(object):
     def fullchain(self, fullchain):
         """Sets the fullchain of this Certificate.
 
-        中間証明書付きサーバ証明書  # noqa: E501
+        server certificate with intermediate certificate  # noqa: E501
 
         :param fullchain: The fullchain of this Certificate.  # noqa: E501
         :type: str
@@ -131,7 +131,7 @@ class Certificate(object):
     def privkey(self):
         """Gets the privkey of this Certificate.  # noqa: E501
 
-        秘密鍵  # noqa: E501
+        private key  # noqa: E501
 
         :return: The privkey of this Certificate.  # noqa: E501
         :rtype: str
@@ -142,7 +142,7 @@ class Certificate(object):
     def privkey(self, privkey):
         """Sets the privkey of this Certificate.
 
-        秘密鍵  # noqa: E501
+        private key  # noqa: E501
 
         :param privkey: The privkey of this Certificate.  # noqa: E501
         :type: str

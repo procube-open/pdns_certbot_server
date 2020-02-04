@@ -3,7 +3,7 @@
 """
     REST powerdns certbot
 
-    let's encrypt でサーバ証明書を取得し配布する。 環境変数 CERTBOT_PDNS_BASE_URL に指定された URL   に対して CERTBOT_PDNS_API_KEY に指定された API 鍵で PowerDNS の API に接続して letsencrpt の認証を受ける。 認証時は CERTBOT_EMAIL に指定したメールアドレスで lets encrypt のアカウントを作成する。 また、 renew API が呼び出されると取得した証明書を更新する。   # noqa: E501
+    Get a server certificate by let's encrypt and distribute. It will be certified by let's encrypt by connecting PowerDNS API defined in environment variable CERTBOT_PDNS_BASE_URL using environment variable CERTBOT_PDNS_API_KEY. It creates let's encrypt account using e-mail address defined in environment variable CERTBOT_EMAIL. When renew API is called, it renew certificate.  # noqa: E501
 
     OpenAPI spec version: 1.0.0
     Contact: mitsuru@procube.jp
@@ -65,13 +65,13 @@ class TestGetCertificateApi(unittest.TestCase):
 
             # contents of certificate
             print("version : " + str(test_Certificate.get_version()))
-            print("シリアル番号 : " + str(test_Certificate.get_serial_number()))
-            print("署名アルゴリズム : " + str(test_Certificate.get_signature_algorithm()))
-            print("発行者 : " + str(test_Certificate.get_issuer().commonName))
-            print("有効期限開始日 : " + str(test_Certificate.get_notBefore()))
-            print("有効期限終了日 : " + str(test_Certificate.get_notAfter()))
-            print("サブジェクト : "+ str(test_Certificate.get_subject().commonName))
-            print("公開鍵 : " + str(test_Certificate.get_pubkey()))
+            print("serial number : " + str(test_Certificate.get_serial_number()))
+            print("algorithm : " + str(test_Certificate.get_signature_algorithm()))
+            print("name : " + str(test_Certificate.get_issuer().commonName))
+            print("begin date : " + str(test_Certificate.get_notBefore()))
+            print("expire date : " + str(test_Certificate.get_notAfter()))
+            print("subject : "+ str(test_Certificate.get_subject().commonName))
+            print("public key : " + str(test_Certificate.get_pubkey()))
 
             # unittest
             self.assertEqual(fqdn, test_Certificate.get_subject().commonName)

@@ -3,7 +3,7 @@
 """
     REST powerdns certbot
 
-    let's encrypt でサーバ証明書を取得し配布する。 環境変数 CERTBOT_PDNS_BASE_URL に指定された URL   に対して CERTBOT_PDNS_API_KEY に指定された API 鍵で PowerDNS の API に接続して letsencrpt の認証を受ける。 認証時は CERTBOT_EMAIL に指定したメールアドレスで lets encrypt のアカウントを作成する。 また、 renew API が呼び出されると取得した証明書を更新する。   # noqa: E501
+    Get a server certificate by let's encrypt and distribute. It will be certified by let's encrypt by connecting PowerDNS API defined in environment variable CERTBOT_PDNS_BASE_URL using environment variable CERTBOT_PDNS_API_KEY. It creates let's encrypt account using e-mail address defined in environment variable CERTBOT_EMAIL. When renew API is called, it renew certificate.  # noqa: E501
 
     OpenAPI spec version: 1.0.0
     Contact: mitsuru@procube.jp
@@ -33,16 +33,16 @@ class GetCertificateApi(object):
         self.api_client = api_client
 
     def get_certificate(self, fqdn, **kwargs):  # noqa: E501
-        """サーバ証明書を取得するAPIである。  # noqa: E501
+        """API that gets server certificate.  # noqa: E501
 
-        fqdn で指定されたドメインのサーバ証明書   # noqa: E501
+        server certificate of domain which specified in fqdn   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.get_certificate(fqdn, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
-        :param str fqdn: 取得する証明書の FQDN (required)
+        :param str fqdn: FQDN of certificate to get (required)
         :return: Certificate
                  If the method is called asynchronously,
                  returns the request thread.
@@ -55,16 +55,16 @@ class GetCertificateApi(object):
             return data
 
     def get_certificate_with_http_info(self, fqdn, **kwargs):  # noqa: E501
-        """サーバ証明書を取得するAPIである。  # noqa: E501
+        """API that gets server certificate.  # noqa: E501
 
-        fqdn で指定されたドメインのサーバ証明書   # noqa: E501
+        server certificate of domain which specified in fqdn   # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
         >>> thread = api.get_certificate_with_http_info(fqdn, async_req=True)
         >>> result = thread.get()
 
         :param async_req bool
-        :param str fqdn: 取得する証明書の FQDN (required)
+        :param str fqdn: FQDN of certificate to get (required)
         :return: Certificate
                  If the method is called asynchronously,
                  returns the request thread.

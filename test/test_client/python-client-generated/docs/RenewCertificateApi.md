@@ -4,14 +4,14 @@ All URIs are relative to *http://localhost:61003/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**renew**](RenewCertificateApi.md#renew) | **POST** /renew | サーバ証明書を更新する
+[**renew**](RenewCertificateApi.md#renew) | **POST** /renew | renew server certificate
 
 # **renew**
 > renew()
 
-サーバ証明書を更新する
+renew server certificate
 
-取得済みの証明書の期限切れをチェックし、期限切れが 近いものを更新するAPIである。クロックデーモンにより、 定期的に呼び出されることを前提としている。 
+API that renew certificate which is about to expire. This should be called regularly by clock daemon.
 
 ### Example
 ```python
@@ -25,7 +25,7 @@ from pprint import pprint
 api_instance = swagger_client.RenewCertificateApi()
 
 try:
-    # サーバ証明書を更新する
+    # renew server certificate.
     api_instance.renew()
 except ApiException as e:
     print("Exception when calling RenewCertificateApi->renew: %s\n" % e)

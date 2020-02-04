@@ -4,14 +4,14 @@ All URIs are relative to *http://localhost:61003/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**get_certificate**](GetCertificateApi.md#get_certificate) | **GET** /get/{fqdn} | サーバ証明書を取得するAPIである。
+[**get_certificate**](GetCertificateApi.md#get_certificate) | **GET** /get/{fqdn} | API that get server certificate.
 
 # **get_certificate**
 > Certificate get_certificate(fqdn)
 
-サーバ証明書を取得するAPIである。
+API that get server certificate.
 
-fqdn で指定されたドメインのサーバ証明書 
+server certificate of domain that specified in fqdn
 
 ### Example
 ```python
@@ -23,10 +23,10 @@ from pprint import pprint
 
 # create an instance of the API class
 api_instance = swagger_client.GetCertificateApi()
-fqdn = 'fqdn_example' # str | 取得する証明書の FQDN
+fqdn = 'fqdn_example' # str | FQDN of certificate to get
 
 try:
-    # サーバ証明書を取得するAPIである。
+    # API that gets server certificate.
     api_response = api_instance.get_certificate(fqdn)
     pprint(api_response)
 except ApiException as e:
@@ -37,7 +37,7 @@ except ApiException as e:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **fqdn** | **str**| 取得する証明書の FQDN | 
+ **fqdn** | **str**| FQDN of certificate to get | 
 
 ### Return type
 
