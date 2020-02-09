@@ -19,8 +19,7 @@ docker run -t -d --name=pdns_certbot_server_test \
 -e CERTBOT_PDNS_API_KEY=test_api_key \
 -e CERTBOT_EMAIL=test@procube.jp \
 -p 8080:8080 \
-procube/pdns_certbot_server:latest \
-python3 -m swagger_server
+procube/pdns_certbot_server:latest
 ```
 
 Please change environment variable into your own one.  
@@ -48,8 +47,7 @@ docker run -t -d --name=pdns_certbot_server_test \
 -e CERTBOT_PDNS_API_KEY=test_api_key \
 -e CERTBOT_EMAIL=test@procube.jp \
 -p 8080:8080 \
-pdns_certbot_server_test:latest \
-python3 -m swagger_server
+pdns_certbot_server_test:latest
 ```
   
 Please change environment variable into your own one.  

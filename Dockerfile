@@ -58,3 +58,4 @@ RUN apk add --no-cache --virtual .build-deps \
 && apk del .build-deps
 
 WORKDIR /usr/src/app
+CMD ["python3", "-m", "swagger_server"]

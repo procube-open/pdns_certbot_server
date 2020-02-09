@@ -10,7 +10,6 @@ services:
       CERTBOT_EMAIL: test@procube.jp
     ports:
       - '8080:8080'
-    command: python3 -m swagger_server
     tty: true
     networks:
       - my-network
