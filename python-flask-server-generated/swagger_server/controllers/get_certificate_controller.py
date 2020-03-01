@@ -1,5 +1,4 @@
 import datetime
-import logging
 import os
 import pathlib
 import subprocess
@@ -13,8 +12,8 @@ sys.path.append(str(current_dir) + '/../')
 
 from models.certificate import Certificate  # noqa: E501
 from models.error import Error  # noqa: E501
+from swagger_server.controllers import LOCK, logger
 
-LOCK = threading.Lock()
 
 
 def get_certificate(fqdn):  # noqa: E501
@@ -31,10 +30,6 @@ def get_certificate(fqdn):  # noqa: E501
         try:
             target_Certificate = Certificate()
             error_message = Error()
-
-            logger = logging.getLogger("LOG")
-            handler = logging.StreamHandler()
-            logger.addHandler(handler)
 
             # path
             cert_path = '/etc/letsencrypt/live/' + fqdn + '/cert.pem'
